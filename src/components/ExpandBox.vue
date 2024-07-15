@@ -1,11 +1,33 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+//const props = defineProps(['title', 'content'])
+const props = defineProps({
+    title: {
+        type: String,
+        required: true 
+    },
+    content:{
+        type: String,
+        default: "Valor padrão do texto da caixa..."
+
+    
+    }, quantity:{
+        type:Number,
+        default: 1,
+    }
+})
 const showContent = ref(false)
+const textButton = computed(() => ( showContent.value ? 'Esconder' : 'Mostrar'))
 </script>
 
 <template>
-    <div><button @click="showContent = !showContent">mostrar</button></div>
-    <div v-if="showContent" class="expand-box">beijinho no ombro</div>
+    <div><button @click="showContent = !showContent">{{ textButton }}</button>
+        <div v-if="showContent" class="expand-box">beijinho no ombro
+            <h1>{{ title }}</h1>
+            <p>{{ content }}</p>
+            <p>Quantidade: {{ quantity }}</p>
+        </div>
+    </div>
 </template>
 
 <style scoped>
